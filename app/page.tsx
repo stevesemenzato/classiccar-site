@@ -18,6 +18,8 @@ import {
 export default function ClassicCarRadarWebsite() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitMessage, setSubmitMessage] = useState("");
 
   const marketRows = useMemo(
     () => [
@@ -86,10 +88,40 @@ export default function ClassicCarRadarWebsite() {
     { value: "AI", label: "guided commentary" },
   ];
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!email.trim()) return;
-    setSubmitted(true);
+
+    const cleanEmail = email.trim().toLowerCase();
+    if (!cleanEmail) return;
+
+    setSubmitting(true);
+    setSubmitMessage("");
+    setSubmitted(false);
+
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: cleanEmail }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.ok) {
+        setSubmitMessage(data.error || "Something went wrong. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+      setSubmitMessage(data.message || "Thanks — you're on the CCR waitlist.");
+      setEmail("");
+    } catch {
+      setSubmitMessage("Network error. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   return (
@@ -414,23 +446,30 @@ export default function ClassicCarRadarWebsite() {
                     placeholder="you@example.com"
                     className="h-13 w-full rounded-2xl border border-white/10 bg-white/5 px-11 py-3 text-white outline-none transition placeholder:text-white/30 focus:border-white/30"
                     required
+                    disabled={submitting}
                   />
                 </div>
                 <button
                   type="submit"
-                  className="rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.02]"
+                  disabled={submitting}
+                  className="rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Request Access
+                  {submitting ? "Submitting..." : "Request Access"}
                 </button>
               </div>
               <p className="text-xs leading-6 text-white/45">
-                For production, connect this form to your email service or CRM endpoint. Right now
-                it is wired as a front-end beta capture stub.
+                Join the CCR private beta waitlist for launch updates and early access.
               </p>
+
+              {submitMessage && !submitted && (
+                <div className="rounded-2xl border border-red-400/15 bg-red-400/10 px-4 py-3 text-sm text-red-200">
+                  {submitMessage}
+                </div>
+              )}
+
               {submitted && (
                 <div className="rounded-2xl border border-emerald-400/15 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-200">
-                  Thanks — your interest is captured in the front-end flow. Next step is
-                  connecting this to Resend, Mailchimp, HubSpot, or a simple Next.js API route.
+                  {submitMessage || "Thanks — you're on the CCR waitlist. We'll be in touch."}
                 </div>
               )}
             </form>
