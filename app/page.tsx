@@ -164,7 +164,7 @@ export default function ClassicCarRadarWebsite() {
               <a href="#waitlist" className="transition hover:text-white">
                 Waitlist
               </a>
-              
+              <a
                 href="https://classiccarradar.com"
                 className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-white transition hover:bg-white/10"
               >
@@ -200,14 +200,14 @@ export default function ClassicCarRadarWebsite() {
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
-              
+              <a
                 href="#waitlist"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.02]"
               >
                 Request Early Access
                 <ArrowRight className="h-4 w-4" />
               </a>
-              
+              <a
                 href="https://classiccarradar.com"
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
@@ -511,7 +511,7 @@ export default function ClassicCarRadarWebsite() {
             </div>
           </div>
           <div className="px-8 pb-8 lg:px-10 lg:pb-0">
-            
+            <a
               href="https://classiccarradar.com"
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
             >
