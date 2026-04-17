@@ -54,38 +54,38 @@ export default function ClassicCarRadarWebsite() {
   const pillars = [
     {
       icon: Search,
-      title: "Search-first discovery",
-      text: "One intelligent interface across dealer listings, auctions, sold history, and emerging supply.",
+      title: "Proven classics",
+      text: "Deep market context on the established collectibles — the cars whose trajectory is already clear and whose pricing deserves precision.",
     },
     {
       icon: LineChart,
-      title: "Market truth",
-      text: "12-month sold-price context and live asking data give buyers a grounded view of value.",
+      title: "Modern performance",
+      text: "Track the GT cars, limited editions, and driver-focused machines of the last two decades as the market begins to recognize their significance.",
     },
     {
       icon: Sparkles,
-      title: "Personalized intelligence",
-      text: "The platform learns what matters to each user and surfaces more relevant cars, alerts, and commentary.",
+      title: "Future collectibles",
+      text: "Identify the cars being defined as collectible right now — the final naturally aspirated engines, the last manual transmissions, the end of an era.",
     },
     {
       icon: Gauge,
-      title: "Negotiation edge",
-      text: "Use real comps and channel-normalized pricing to understand when to push, wait, or move fast.",
+      title: "Market positioning",
+      text: "Understand where each car sits relative to its true market — across dealer supply, auction results, and private sales — so you can act with confidence.",
     },
   ];
 
   const workflow = [
-    "Sweep inventory and auction channels continuously.",
-    "Normalize models, variants, sold states, and pricing signals.",
-    "Deduplicate noisy supply into one clean market view.",
-    "Apply market logic and personal preferences to rank opportunity.",
+    "Electrification is accelerating. Every major manufacturer has committed to a transition timeline — and production shifts are already underway.",
+    "The supply of internal combustion cars is now finite. No new naturally aspirated flat-sixes, high-revving V10s, or mechanical GT cars are coming.",
+    "The cars that defined driving — analog steering, manual gearboxes, atmospheric engines — represent a closed chapter in automotive history.",
+    "The market has not fully repriced this shift. The window between recognition and valuation is where informed collectors find opportunity.",
   ];
 
   const stats = [
-    { value: "1", label: "buyer workspace" },
-    { value: "multi", label: "channel market view" },
-    { value: "12mo", label: "rolling pricing context" },
-    { value: "AI", label: "guided commentary" },
+    { value: "Classics", label: "proven collectibles" },
+    { value: "Modern", label: "performance era" },
+    { value: "Future", label: "emerging collectibles" },
+    { value: "ICE", label: "final generation" },
   ];
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -149,7 +149,7 @@ export default function ClassicCarRadarWebsite() {
                   CLASSIC CAR RADAR
                 </p>
                 <p className="text-[11px] uppercase tracking-[0.34em] text-white/40">
-                  Market Intelligence for Enthusiast Cars
+                  Intelligence for Classic, Modern & Future Collectible Cars
                 </p>
               </div>
             </div>
@@ -164,7 +164,7 @@ export default function ClassicCarRadarWebsite() {
               <a href="#waitlist" className="transition hover:text-white">
                 Waitlist
               </a>
-              <a
+              
                 href="https://classiccarradar.com"
                 className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-white transition hover:bg-white/10"
               >
@@ -183,28 +183,31 @@ export default function ClassicCarRadarWebsite() {
           >
             <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs uppercase tracking-[0.28em] text-white/72 backdrop-blur">
               <Bell className="h-4 w-4" />
-              Private Beta Now Forming
+              The Final ICE Generation
             </div>
 
             <h1 className="mt-8 text-5xl font-semibold leading-[0.98] tracking-[-0.05em] sm:text-6xl lg:text-7xl">
-              Stop browsing harder. <span className="text-white/58">Start buying smarter.</span>
+              What you drive today <span className="text-white/58">could be a future classic.</span>
             </h1>
 
             <p className="mt-8 max-w-2xl text-lg leading-8 text-white/68 sm:text-xl">
-              Classic Car Radar brings together live dealer supply, auction activity, sold
-              history, and AI-guided market interpretation in one premium search experience for
-              enthusiast buyers.
+              As the world moves beyond internal combustion, a finite set of cars becomes
+              something else entirely — collectible.
+            </p>
+            <p className="mt-4 max-w-2xl text-lg leading-8 text-white/58 sm:text-xl">
+              Classic Car Radar helps you identify them early, understand their true market
+              position, and act before the market catches up.
             </p>
 
             <div className="mt-9 flex flex-wrap gap-4">
-              <a
+              
                 href="#waitlist"
                 className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:scale-[1.02]"
               >
-                Join the Waitlist
+                Request Early Access
                 <ArrowRight className="h-4 w-4" />
               </a>
-              <a
+              
                 href="https://classiccarradar.com"
                 className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
               >
@@ -307,17 +310,23 @@ export default function ClassicCarRadarWebsite() {
         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div>
             <p className="text-sm uppercase tracking-[0.26em] text-white/42">
-              Premium buyer platform
+              Market intelligence platform
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-              Elegant on the surface. Deeply technical underneath.
+              Past. Present. Future.
             </h2>
           </div>
-          <p className="max-w-2xl text-base leading-8 text-white/66 sm:text-lg">
-            CCR is designed to feel calm, selective, and high-trust while doing the hard work
-            behind the scenes: sweeping fragmented supply, normalizing noisy listings, comparing
-            live asks to sold history, and tuning the experience to each buyer.
-          </p>
+          <div className="max-w-2xl">
+            <p className="text-base leading-8 text-white/66 sm:text-lg">
+              CCR is built around a simple idea: the next generation of collectible cars is being
+              defined right now.
+            </p>
+            <p className="mt-4 text-base leading-8 text-white/56 sm:text-lg">
+              From proven classics to modern performance cars to the final era of internal
+              combustion, we give you the context to understand where each car sits — and where
+              it&apos;s going.
+            </p>
+          </div>
         </div>
 
         <div className="mt-10 overflow-hidden rounded-[34px] border border-white/10 bg-white/[0.03]">
@@ -370,10 +379,10 @@ export default function ClassicCarRadarWebsite() {
         <div className="mx-auto grid max-w-7xl gap-10 px-6 py-20 lg:grid-cols-[1fr_0.95fr] lg:px-8">
           <div>
             <p className="text-sm uppercase tracking-[0.26em] text-white/42">
-              How intelligence flows
+              The macro shift
             </p>
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-              Built to turn noise into signal.
+              The last great era of internal combustion.
             </h2>
             <div className="mt-8 space-y-5">
               {workflow.map((item, index) => (
@@ -397,15 +406,15 @@ export default function ClassicCarRadarWebsite() {
           <div className="rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.07),rgba(255,255,255,0.02))] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.4)]">
             <div className="flex items-center gap-3 text-white/85">
               <Database className="h-5 w-5" />
-              <p className="text-sm uppercase tracking-[0.26em]">What users get</p>
+              <p className="text-sm uppercase tracking-[0.26em]">What CCR delivers</p>
             </div>
             <div className="mt-6 space-y-4">
               {[
-                "One clean market view across multiple buying channels",
-                "Dealer vs sold-auction pricing context",
-                "Search and commentary tuned to personal taste",
-                "A better sense of what deserves fast action",
-                "A credible basis for negotiation and patience",
+                "Identify which modern cars are emerging as collectibles before consensus forms",
+                "Track real transaction data across dealers, auctions, and private sales",
+                "Understand where a car sits in its market cycle — rising, plateaued, or undervalued",
+                "Separate genuine scarcity from manufactured hype with data, not speculation",
+                "Act with precision when the right car appears at the right price",
               ].map((item) => (
                 <div
                   key={item}
@@ -425,11 +434,11 @@ export default function ClassicCarRadarWebsite() {
           <div>
             <p className="text-sm uppercase tracking-[0.26em] text-white/42">Early access</p>
             <h2 className="mt-3 text-3xl font-semibold tracking-[-0.04em] sm:text-5xl">
-              Join the private waitlist.
+              Get ahead of the market.
             </h2>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-white/68">
-              Get launch updates, beta invitations, and early access to the personalized market
-              intelligence layer.
+              Request early access to CCR and be among the first to use institutional-grade
+              market intelligence for the collectible car market.
             </p>
           </div>
 
@@ -454,11 +463,11 @@ export default function ClassicCarRadarWebsite() {
                   disabled={submitting}
                   className="rounded-2xl bg-white px-5 py-3 text-sm font-semibold text-black transition hover:scale-[1.02] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  {submitting ? "Submitting..." : "Request Access"}
+                  {submitting ? "Submitting..." : "Request Early Access"}
                 </button>
               </div>
               <p className="text-xs leading-6 text-white/45">
-                Join the CCR private beta waitlist for launch updates and early access.
+                Request early access to the CCR platform. Limited availability.
               </p>
 
               {submitMessage && !submitted && (
@@ -489,20 +498,20 @@ export default function ClassicCarRadarWebsite() {
             />
             <div className="relative z-10 max-w-2xl">
               <p className="text-sm uppercase tracking-[0.26em] text-white/42">
-                Live product connection
+                The platform
               </p>
               <h3 className="mt-2 text-2xl font-semibold tracking-[-0.03em]">
-                Ready to point directly at your app.
+                Built for collectors who think in decades, not weekends.
               </h3>
               <p className="mt-3 max-w-2xl text-white/65">
-                The buttons are already set to route users to your product domain. Once the live
-                app URL is finalized, this landing page becomes your premium entry point for
-                investors, waitlist users, and future customers.
+                Classic Car Radar is a premium market-intelligence platform for serious
+                collectors, advisors, and enthusiasts who understand that the collectible car
+                market rewards preparation, context, and timing.
               </p>
             </div>
           </div>
           <div className="px-8 pb-8 lg:px-10 lg:pb-0">
-            <a
+            
               href="https://classiccarradar.com"
               className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
             >
