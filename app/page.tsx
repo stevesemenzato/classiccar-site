@@ -1,3 +1,4 @@
+import Image from "next/image";
 import BetaForm from "./_components/beta-form";
 
 /* ════════════════════════════════════════════════════════════════════
@@ -108,6 +109,24 @@ function HeroBrush() {
 
 type EditorialVariant = "garage" | "cockpit" | "lounge";
 
+const TRANSITION_IMAGES: Record<EditorialVariant, { src: string; alt: string; priority: boolean }> = {
+  garage: {
+    src: "/images/ccr-editorial/garage-collector.jpg",
+    alt: "Atmospheric collector garage interior — used as backdrop, heavily desaturated and darkened.",
+    priority: false,
+  },
+  cockpit: {
+    src: "/images/ccr-editorial/cockpit-dusk.jpg",
+    alt: "Automotive silhouette at blue hour — used as backdrop, heavily desaturated and darkened.",
+    priority: false,
+  },
+  lounge: {
+    src: "/images/ccr-editorial/lounge-evening.jpg",
+    alt: "Evening city light with car silhouette — used as backdrop, heavily desaturated and darkened.",
+    priority: false,
+  },
+};
+
 function EditorialTransition({
   variant,
   phrase,
@@ -119,11 +138,21 @@ function EditorialTransition({
   mark?: string;
   ariaLabel: string;
 }) {
+  const img = TRANSITION_IMAGES[variant];
   return (
     <aside
       className={`editorial-transition editorial-transition--${variant}`}
       aria-label={ariaLabel}
     >
+      <Image
+        src={img.src}
+        alt={img.alt}
+        fill
+        sizes="100vw"
+        priority={img.priority}
+        className="editorial-transition-bg"
+      />
+      <div className="editorial-transition-overlay" aria-hidden="true" />
       <div className="editorial-transition-inner">
         <span className="editorial-transition-rule" aria-hidden="true" />
         <p className="editorial-transition-phrase">{phrase}</p>

@@ -554,47 +554,72 @@ button { font: inherit; }
 }
 
 /* ────────────────────────────────────────────────────────────────────
- * EDITORIAL TRANSITIONS — slim typographic chapter breaks
- * Replaced the v0.4 image-shaped placeholder belts. Reads as a
- * deliberate chapter break in a printed editorial document.
- * Imagery (when commissioned) can be layered on later as a
- * background; the typographic structure stays.
+ * EDITORIAL TRANSITIONS — atmospheric image moments
+ * Three full-bleed belts with photography behind heavy CCR treatment
+ * (grayscale, brightness compression, copper + obsidian overlay,
+ * strong vignette). Typography stays dominant — the image is
+ * atmospheric backdrop, not subject.
+ *
+ * Layers:
+ *   1. .editorial-transition-bg — the photo (next/image, filtered)
+ *   2. .editorial-transition-overlay — copper + obsidian + vignette
+ *   3. .editorial-transition-inner — typography on top
  * ──────────────────────────────────────────────────────────────────── */
 .editorial-transition {
   position: relative;
   width: 100%;
-  min-height: 220px;
+  min-height: 460px;
   display: flex; align-items: center; justify-content: center;
   background: var(--obsidian-deep);
-  padding: 56px 40px;
+  padding: 64px 40px;
   text-align: center;
   border-top: 1px solid var(--rule);
   border-bottom: 1px solid var(--rule);
   overflow: hidden;
 }
-.editorial-transition::before {
-  content: "";
+.editorial-transition-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Heavy CCR treatment — desaturate aggressively, crush the highs,
+   * lift contrast slightly to keep silhouettes from going flat.
+   * The image becomes atmosphere, not subject. */
+  filter: grayscale(0.88) brightness(0.42) contrast(1.18) blur(0.4px);
+  z-index: 0;
+}
+.editorial-transition-overlay {
   position: absolute; inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
-.editorial-transition--garage::before {
+.editorial-transition--garage .editorial-transition-overlay {
   background:
-    radial-gradient(ellipse 60% 80% at 50% 50%, rgba(198,143,94,0.06), transparent 70%),
-    linear-gradient(180deg, #0F1116 0%, #08090C 100%);
+    /* Strong vignette */
+    radial-gradient(ellipse 80% 70% at 50% 50%, transparent 28%, rgba(0,0,0,0.62) 100%),
+    /* Copper wash upper-left (warm interior light direction) */
+    radial-gradient(ellipse 50% 55% at 22% 32%, rgba(198,143,94,0.18), transparent 65%),
+    /* Obsidian veil */
+    linear-gradient(180deg, rgba(14,16,20,0.55) 0%, rgba(14,16,20,0.78) 100%);
 }
-.editorial-transition--cockpit::before {
+.editorial-transition--cockpit .editorial-transition-overlay {
   background:
-    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(198,143,94,0.07), transparent 70%),
-    linear-gradient(180deg, #0A0C10 0%, #14171D 100%);
+    radial-gradient(ellipse 80% 70% at 50% 50%, transparent 28%, rgba(0,0,0,0.62) 100%),
+    /* Warm horizon glow from below */
+    radial-gradient(ellipse 80% 45% at 50% 100%, rgba(198,143,94,0.22), transparent 70%),
+    linear-gradient(180deg, rgba(14,16,20,0.62) 0%, rgba(14,16,20,0.72) 100%);
 }
-.editorial-transition--lounge::before {
+.editorial-transition--lounge .editorial-transition-overlay {
   background:
-    radial-gradient(ellipse 35% 55% at 50% 50%, rgba(198,143,94,0.08), transparent 65%),
-    linear-gradient(180deg, #0E1014 0%, #16181F 60%, #0B0D11 100%);
+    radial-gradient(ellipse 80% 70% at 50% 50%, transparent 28%, rgba(0,0,0,0.60) 100%),
+    /* Single warm focal copper */
+    radial-gradient(ellipse 38% 50% at 62% 42%, rgba(198,143,94,0.22), transparent 60%),
+    linear-gradient(180deg, rgba(14,16,20,0.55) 0%, rgba(14,16,20,0.75) 100%);
 }
 .editorial-transition-inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   max-width: 60ch;
 }
 .editorial-transition-rule {
