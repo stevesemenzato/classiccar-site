@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" width="180" height="180">
+  <!-- CCR mark for iOS home-screen / Apple touch icon. Rounded corners
+       are applied by the OS; we use the full square. -->
+  <rect width="180" height="180" fill="#0E1014"/>
+  <!-- Subtle warm atmosphere -->
+  <defs>
+    <radialGradient id="warm" cx="35%" cy="35%" r="60%">
+      <stop offset="0%" stop-color="#C68F5E" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#C68F5E" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="180" height="180" fill="url(#warm)"/>
+  <!-- Mark -->
+  <g transform="translate(90 90)">
+    <circle r="58" fill="none" stroke="#E8E3D8" stroke-width="2.2" opacity="0.55"/>
+    <circle r="38" fill="none" stroke="#C68F5E" stroke-width="2.6" opacity="0.95"/>
+    <g stroke="#E8E3D8" stroke-width="2.4" opacity="0.85" stroke-linecap="round">
+      <line x1="0" y1="-66" x2="0" y2="-54"/>
+      <line x1="0" y1="54"  x2="0" y2="66"/>
+      <line x1="-66" y1="0" x2="-54" y2="0"/>
+      <line x1="54"  y1="0" x2="66"  y2="0"/>
+    </g>
+    <circle r="6" fill="#C68F5E"/>
+  </g>
+</svg>

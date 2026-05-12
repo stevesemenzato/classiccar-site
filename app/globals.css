@@ -43,6 +43,15 @@
 
 * { box-sizing: border-box; }
 html, body { margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
 body {
   font-family: var(--ff-sans);
   font-weight: 400;
@@ -146,6 +155,15 @@ button { font: inherit; }
   pointer-events: none;
   opacity: 0.07;
   mix-blend-mode: screen;
+  animation: ccr-brush-drift 48s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes ccr-brush-drift {
+  /* Almost invisible ambient drift — 0.6° rotation across 48s.
+   * Subliminal cue that the page is "live," not a static brochure.
+   * Disabled under prefers-reduced-motion via the global guard. */
+  0%   { transform: rotate(-0.3deg) translateX(-0.4%); }
+  100% { transform: rotate(0.3deg) translateX(0.4%); }
 }
 .hero-horizon {
   position: absolute;
@@ -510,6 +528,18 @@ button { font: inherit; }
   background: var(--copper);
   opacity: 0.7;
 }
+.intel-query-dossier {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--ff-mono);
+  font-style: normal;
+  font-size: 10px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mid-warm);
+  opacity: 0.55;
+  letter-spacing: 0.22em;
+}
 .intel-queries-foot {
   margin-top: 36px;
   padding-top: 28px;
@@ -551,32 +581,65 @@ button { font: inherit; }
 }
 .editorial-image--garage::before {
   background:
-    radial-gradient(ellipse 45% 55% at 22% 38%, rgba(198,143,94,0.14), transparent 65%),
-    radial-gradient(ellipse 60% 70% at 80% 78%, rgba(232,227,216,0.04), transparent 60%),
-    linear-gradient(125deg, transparent 0%, rgba(232,227,216,0.03) 38%, transparent 42%, transparent 100%),
+    /* warm interior light (lamp/window upper-left) */
+    radial-gradient(ellipse 45% 55% at 22% 38%, rgba(198,143,94,0.15), transparent 65%),
+    /* secondary cool reflection */
+    radial-gradient(ellipse 60% 70% at 82% 80%, rgba(232,227,216,0.04), transparent 60%),
+    /* faint shadow drape — suggests a column or wall edge */
+    linear-gradient(120deg, transparent 0%, rgba(0,0,0,0.18) 48%, transparent 52%, transparent 100%),
+    /* base */
     linear-gradient(180deg, #0F1116 0%, #08090C 100%);
 }
 .editorial-image--garage::after {
   background-image:
-    linear-gradient(90deg, transparent 60%, rgba(232,227,216,0.025) 60.5%, transparent 61%),
-    linear-gradient(180deg, transparent 78%, rgba(232,227,216,0.035) 78.5%, transparent 80%),
+    /* faint workbench horizon at ~72% — suggests floor/wall meeting */
+    linear-gradient(180deg, transparent 71%, rgba(232,227,216,0.045) 72%, transparent 73%),
+    /* faint vertical column hint at ~62% — pillar shadow */
+    linear-gradient(90deg, transparent 61%, rgba(0,0,0,0.18) 62%, transparent 63%),
+    /* grain */
     url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9   0 0 0 0 0.88  0 0 0 0 0.84  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
   opacity: 1;
   mix-blend-mode: normal;
 }
 .editorial-image--cockpit::before {
   background:
-    radial-gradient(ellipse 90% 45% at 50% 100%, rgba(198,143,94,0.18), transparent 70%),
-    radial-gradient(ellipse 40% 30% at 30% 70%, rgba(198,143,94,0.06), transparent 60%),
-    linear-gradient(180deg, transparent 58%, rgba(198,143,94,0.05) 60%, transparent 62%),
+    /* dusk glow from below — windshield horizon */
+    radial-gradient(ellipse 95% 45% at 50% 100%, rgba(198,143,94,0.20), transparent 70%),
+    /* subtle copper accent left of center */
+    radial-gradient(ellipse 35% 28% at 32% 72%, rgba(198,143,94,0.08), transparent 60%),
+    /* horizon line at 60% — dashboard top edge */
+    linear-gradient(180deg, transparent 58%, rgba(198,143,94,0.06) 60%, transparent 62%),
+    /* base */
     linear-gradient(180deg, #0A0C10 0%, #14171D 100%);
+}
+.editorial-image--cockpit::after {
+  background-image:
+    /* faint instrument-arc silhouette lower-left (gauge cluster hint) */
+    radial-gradient(circle 80px at 28% 78%, transparent 64%, rgba(232,227,216,0.08) 64.5%, transparent 66%),
+    radial-gradient(circle 60px at 38% 80%, transparent 64%, rgba(232,227,216,0.06) 64.5%, transparent 66%),
+    /* grain */
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9   0 0 0 0 0.88  0 0 0 0 0.84  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 1;
 }
 .editorial-image--lounge::before {
   background:
-    radial-gradient(ellipse 28% 45% at 65% 38%, rgba(198,143,94,0.20), transparent 60%),
-    radial-gradient(ellipse 22% 35% at 32% 60%, rgba(232,227,216,0.06), transparent 60%),
-    radial-gradient(ellipse 50% 60% at 50% 85%, rgba(166,123,90,0.06), transparent 65%),
+    /* warm lamp glow upper-right (the focal warmth) */
+    radial-gradient(ellipse 26% 42% at 68% 36%, rgba(198,143,94,0.22), transparent 60%),
+    /* cool reflection lower-left (window or polished surface) */
+    radial-gradient(ellipse 22% 36% at 30% 62%, rgba(232,227,216,0.06), transparent 60%),
+    /* warm floor wash */
+    radial-gradient(ellipse 50% 60% at 50% 88%, rgba(166,123,90,0.07), transparent 65%),
+    /* base */
     linear-gradient(180deg, #0E1014 0%, #16181F 60%, #0B0D11 100%);
+}
+.editorial-image--lounge::after {
+  background-image:
+    /* faint horizontal table edge at ~58% */
+    linear-gradient(180deg, transparent 57%, rgba(232,227,216,0.05) 58%, transparent 59.5%),
+    /* faint vertical lamp-stem at ~67% */
+    linear-gradient(90deg, transparent 66%, rgba(232,227,216,0.04) 66.5%, transparent 67%),
+    url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9   0 0 0 0 0.88  0 0 0 0 0.84  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  opacity: 1;
 }
 .editorial-image-caption {
   position: absolute;
@@ -701,6 +764,14 @@ button { font: inherit; }
   opacity: 0.55;
   display: flex; gap: 18px;
 }
+.radar-item {
+  transition: background 0.4s ease;
+}
+.radar-item:hover {
+  background: rgba(198,143,94,0.018);
+}
+.radar-item:hover .radar-car { color: var(--bone); }
+.radar-item:hover .radar-obs { opacity: 0.92; }
 .radar-foot {
   margin-top: 72px;
   display: flex; justify-content: space-between; align-items: center;

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Source_Serif_4, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -24,18 +24,56 @@ const jetbrains = JetBrains_Mono({
   display: "swap",
 });
 
+const SITE_URL = "https://classiccarradar.com";
+
 export const metadata: Metadata = {
-  title:
-    "Classic Car Radar — Trusted Intelligence for the Classic Car Enthusiast",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default:
+      "Classic Car Radar — Trusted Intelligence for the Classic Car Enthusiast",
+    template: "%s · Classic Car Radar",
+  },
   description:
-    "Classic Car Radar helps enthusiasts navigate the classic and collectible car market with confidence, context, and clarity. Signals worth watching. Opportunities worth pursuing.",
+    "Trusted intelligence for the classic car enthusiast. Signals worth watching. Opportunities worth pursuing. CCR helps collectors navigate the classic and collectible car market with confidence, context, and clarity.",
+  applicationName: "Classic Car Radar",
+  authors: [{ name: "Classic Car Radar" }],
+  keywords: [
+    "classic car",
+    "collector car",
+    "collectible car intelligence",
+    "Porsche 911",
+    "Ferrari",
+    "auction comps",
+    "market intelligence",
+    "private beta",
+  ],
   openGraph: {
+    type: "website",
+    url: SITE_URL,
+    siteName: "Classic Car Radar",
+    title: "Classic Car Radar — Trusted Intelligence for the Classic Car Enthusiast",
+    description:
+      "Signals worth watching. Opportunities worth pursuing. Editorial market intelligence for the classic and collectible car enthusiast.",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
     title: "Classic Car Radar",
     description:
       "Trusted intelligence for the classic car enthusiast. Signals worth watching. Opportunities worth pursuing.",
-    type: "website",
   },
   robots: { index: true, follow: true },
+  alternates: { canonical: SITE_URL },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#0E1014" },
+    { media: "(prefers-color-scheme: dark)", color: "#0E1014" },
+  ],
+  colorScheme: "dark",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({

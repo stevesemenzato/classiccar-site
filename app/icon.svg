@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <!-- CCR chronograph mark — for browser tabs.
+       Dark obsidian background so the mark reads at small sizes
+       on both light and dark browser chrome. -->
+  <rect width="32" height="32" rx="6" fill="#0E1014"/>
+  <circle cx="16" cy="16" r="11" fill="none" stroke="#E8E3D8" stroke-width="0.9" opacity="0.55"/>
+  <circle cx="16" cy="16" r="7" fill="none" stroke="#C68F5E" stroke-width="1" opacity="0.95"/>
+  <g stroke="#E8E3D8" stroke-width="0.9" opacity="0.85" stroke-linecap="round">
+    <line x1="16" y1="4.5"  x2="16" y2="6.8"/>
+    <line x1="16" y1="25.2" x2="16" y2="27.5"/>
+    <line x1="4.5"  y1="16" x2="6.8"  y2="16"/>
+    <line x1="25.2" y1="16" x2="27.5" y2="16"/>
+  </g>
+  <circle cx="16" cy="16" r="1.9" fill="#C68F5E"/>
+</svg>

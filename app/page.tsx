@@ -432,10 +432,30 @@ export default function Page() {
             </div>
             <div className="intel-queries">
               <div className="intel-queries-label">Read in natural language</div>
-              <div className="intel-query">&ldquo;Air-cooled 911 manual under 100k.&rdquo;</div>
-              <div className="intel-query">&ldquo;California T under 130.&rdquo;</div>
-              <div className="intel-query">&ldquo;Driver-grade 964 with recent engine work.&rdquo;</div>
-              <div className="intel-query">&ldquo;Late-90s GT3 in Europe, no track use.&rdquo;</div>
+              <div className="intel-query">
+                &ldquo;Air-cooled 911 manual under 100k.&rdquo;
+                <span className="intel-query-dossier">
+                  Porsche 911 · 1965–1998 · G-series &amp; 993 manuals
+                </span>
+              </div>
+              <div className="intel-query">
+                &ldquo;California T under 130.&rdquo;
+                <span className="intel-query-dossier">
+                  Ferrari · 2014–2017 · Turbocharged GT
+                </span>
+              </div>
+              <div className="intel-query">
+                &ldquo;Driver-grade 964 with recent engine work.&rdquo;
+                <span className="intel-query-dossier">
+                  Porsche 911 · 1989–1994 · M64 maintenance focus
+                </span>
+              </div>
+              <div className="intel-query">
+                &ldquo;Late-90s GT3 in Europe, no track use.&rdquo;
+                <span className="intel-query-dossier">
+                  Porsche 996.1 GT3 · 1999–2001 · originality bias
+                </span>
+              </div>
               <div className="intel-queries-foot">
                 CCR reads intent — not just filters.
                 <br />
