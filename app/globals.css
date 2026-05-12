@@ -554,7 +554,80 @@ button { font: inherit; }
 }
 
 /* ────────────────────────────────────────────────────────────────────
- * EDITORIAL IMAGE MOMENTS (CSS-painted placeholders)
+ * EDITORIAL TRANSITIONS — slim typographic chapter breaks
+ * Replaced the v0.4 image-shaped placeholder belts. Reads as a
+ * deliberate chapter break in a printed editorial document.
+ * Imagery (when commissioned) can be layered on later as a
+ * background; the typographic structure stays.
+ * ──────────────────────────────────────────────────────────────────── */
+.editorial-transition {
+  position: relative;
+  width: 100%;
+  min-height: 220px;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--obsidian-deep);
+  padding: 56px 40px;
+  text-align: center;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+}
+.editorial-transition::before {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+}
+.editorial-transition--garage::before {
+  background:
+    radial-gradient(ellipse 60% 80% at 50% 50%, rgba(198,143,94,0.06), transparent 70%),
+    linear-gradient(180deg, #0F1116 0%, #08090C 100%);
+}
+.editorial-transition--cockpit::before {
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(198,143,94,0.07), transparent 70%),
+    linear-gradient(180deg, #0A0C10 0%, #14171D 100%);
+}
+.editorial-transition--lounge::before {
+  background:
+    radial-gradient(ellipse 35% 55% at 50% 50%, rgba(198,143,94,0.08), transparent 65%),
+    linear-gradient(180deg, #0E1014 0%, #16181F 60%, #0B0D11 100%);
+}
+.editorial-transition-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 60ch;
+}
+.editorial-transition-rule {
+  display: block;
+  width: 56px;
+  height: 1px;
+  background: var(--copper);
+  opacity: 0.7;
+  margin: 0 auto 28px;
+}
+.editorial-transition-phrase {
+  font-family: var(--ff-serif);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(20px, 2.0vw, 26px);
+  line-height: 1.45;
+  letter-spacing: -0.012em;
+  color: var(--bone);
+  margin: 0;
+}
+.editorial-transition-mark {
+  display: block;
+  margin: 28px auto 0;
+  font-family: var(--ff-mono);
+  font-size: 10px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--copper);
+  opacity: 0.5;
+}
+
+/* Legacy editorial-image classes still here for future imagery swap-in.
+ * When commissioned photography arrives, swap markup back to figure.
  * ──────────────────────────────────────────────────────────────────── */
 .editorial-image {
   position: relative;
@@ -745,6 +818,30 @@ button { font: inherit; }
   color: var(--bone);
   margin: 0 0 10px;
 }
+.radar-dossier {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--ff-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--mid-warm);
+  opacity: 0.72;
+  margin: -2px 0 14px;
+}
+.radar-dossier::before {
+  content: "";
+  display: inline-block;
+  width: 14px; height: 1px;
+  background: var(--copper);
+  flex-shrink: 0;
+}
+.radar-dossier strong {
+  font-weight: 500;
+  color: var(--copper);
+  letter-spacing: 0.22em;
+}
 .radar-obs {
   font-family: var(--ff-serif);
   font-style: italic;
@@ -866,6 +963,25 @@ button { font: inherit; }
   color: var(--mid-warm);
   margin-top: 2px;
   letter-spacing: 0.01em;
+}
+.mock-dossier {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-family: var(--ff-mono);
+  font-size: 9px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--copper);
+  opacity: 0.65;
+}
+.mock-dossier::before {
+  content: "";
+  display: inline-block;
+  width: 10px; height: 1px;
+  background: var(--copper);
+  opacity: 0.7;
 }
 .mock-price {
   font-family: var(--ff-mono);

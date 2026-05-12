@@ -106,30 +106,30 @@ function HeroBrush() {
   );
 }
 
-type EditorialImageVariant = "garage" | "cockpit" | "lounge";
+type EditorialVariant = "garage" | "cockpit" | "lounge";
 
-function EditorialImage({
+function EditorialTransition({
   variant,
+  phrase,
+  mark,
   ariaLabel,
-  headline,
-  caption,
 }: {
-  variant: EditorialImageVariant;
+  variant: EditorialVariant;
+  phrase: string;
+  mark?: string;
   ariaLabel: string;
-  headline: string;
-  caption: string;
 }) {
   return (
-    <figure
-      className={`editorial-image editorial-image--${variant}`}
+    <aside
+      className={`editorial-transition editorial-transition--${variant}`}
       aria-label={ariaLabel}
     >
-      <div className="editorial-image-tag">Image · Placeholder</div>
-      <figcaption className="editorial-image-caption">
-        <strong>{headline}</strong>
-        {caption}
-      </figcaption>
-    </figure>
+      <div className="editorial-transition-inner">
+        <span className="editorial-transition-rule" aria-hidden="true" />
+        <p className="editorial-transition-phrase">{phrase}</p>
+        {mark ? <span className="editorial-transition-mark">{mark}</span> : null}
+      </div>
+    </aside>
   );
 }
 
@@ -170,36 +170,42 @@ const RADAR = [
   {
     num: "N° 01",
     car: "Ferrari 550 Maranello manuals",
+    dossier: { marque: "Ferrari", era: "1996–2001", note: "F133 V12 · 6-speed manual" },
     obs: "Manual 550s remain thinly supplied; condition and history are doing more work than mileage.",
     meta: ["European cohort", "9 listings observed"],
   },
   {
     num: "N° 02",
     car: "BMW M5 E39",
+    dossier: { marque: "BMW", era: "1998–2003", note: "S62 V8 · 6-speed manual" },
     obs: "E39 M5 asking prices are clustering, but condition spread is widening.",
     meta: ["North America", "Across dealer inventory"],
   },
   {
     num: "N° 03",
     car: "997 GT3 Touring",
+    dossier: { marque: "Porsche", era: "2017–2019", note: "Mezger-lineage 4.0 · no wing" },
     obs: "Touring cars continue to separate from regular 997 GT3s on the second-hand spread — most visibly at the lower-mileage end.",
     meta: ["Global", "Lower-mileage band"],
   },
   {
     num: "N° 04",
     car: "Mercedes-Benz 190E 2.5-16 Evo II",
+    dossier: { marque: "Mercedes-Benz", era: "1990", note: "Cosworth M102 · 502 built" },
     obs: "Cosworth Evo IIs are moving in fewer, larger transactions; private sales are doing most of the price discovery.",
     meta: ["Auction cohort", "Private transactions"],
   },
   {
     num: "N° 05",
     car: "Aston Martin V12 Vantage S manuals",
+    dossier: { marque: "Aston Martin", era: "2014–2017", note: "5.9L V12 · 7-spd manual" },
     obs: "Manual V12 Vantage Ss are trading in a narrower band than last summer; the volatility has come out of this generation for now.",
     meta: ["UK + EU", "2025 vs. 2024"],
   },
   {
     num: "N° 06",
     car: "Porsche 964 Carrera 2",
+    dossier: { marque: "Porsche", era: "1989–1994", note: "M64 air-cooled · G50/05" },
     obs: "Driver-grade 964s are showing more movement than collector-grade cars.",
     meta: ["North America", "Driver vs. collector"],
   },
@@ -321,12 +327,12 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ───── IMAGE 1 · GARAGE ───── */}
-      <EditorialImage
+      {/* ───── TRANSITION 1 · COLLECTOR'S SPACE ───── */}
+      <EditorialTransition
         variant="garage"
-        ariaLabel="Architectural collector garage interior"
-        headline="A collector's space."
-        caption="Architectural quiet. Warm indirect light. Cars partially visible — the room comes first."
+        ariaLabel="Editorial transition — collector's space"
+        phrase="A collector's space. Architectural quiet, warm indirect light — the room comes first."
+        mark="Chapter I · Why CCR exists"
       />
 
       {/* ───── WHY ───── */}
@@ -466,12 +472,12 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ───── IMAGE 2 · COCKPIT ───── */}
-      <EditorialImage
+      {/* ───── TRANSITION 2 · ANALOG ERA ───── */}
+      <EditorialTransition
         variant="cockpit"
-        ariaLabel="Analog cockpit detail at dusk"
-        headline="From the analog era."
-        caption="Gauges. Materials. The instruments that decide whether a number is a deal or a premium."
+        ariaLabel="Editorial transition — analog era"
+        phrase="From the analog era. Gauges, materials — the instruments that decide whether a number is a deal or a premium."
+        mark="Chapter II · What CCR notices"
       />
 
       {/* ───── RADAR ───── */}
@@ -498,6 +504,13 @@ export default function Page() {
                 <div className="radar-num">{r.num}</div>
                 <div>
                   <h3 className="radar-car">{r.car}</h3>
+                  <div className="radar-dossier">
+                    <strong>{r.dossier.marque}</strong>
+                    <span>·</span>
+                    <span>{r.dossier.era}</span>
+                    <span>·</span>
+                    <span>{r.dossier.note}</span>
+                  </div>
                   <p className="radar-obs">{r.obs}</p>
                   <div className="radar-meta">
                     {r.meta.map((m) => (
@@ -557,6 +570,7 @@ export default function Page() {
                     <div className="mock-sub">
                       Triple Black · 3.2 · G50 manual · 84k mi
                     </div>
+                    <div className="mock-dossier">G-series · 1984–1989</div>
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <div className="mock-price">$89,500</div>
@@ -569,6 +583,7 @@ export default function Page() {
                     <div className="mock-sub">
                       Polar Silver · 993 · manual · 71k mi
                     </div>
+                    <div className="mock-dossier">993 · 1994–1998 · final air-cooled</div>
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <div className="mock-price">$97,800</div>
@@ -583,6 +598,7 @@ export default function Page() {
                     <div className="mock-sub">
                       Guards Red · G50 manual · 52k mi
                     </div>
+                    <div className="mock-dossier">G-series Targa · 1984–1989</div>
                   </div>
                   <div style={{ textAlign: "right" }}>
                     <div className="mock-price">$78,200</div>
@@ -632,6 +648,7 @@ export default function Page() {
                     <div className="mock-sub" style={{ marginTop: "6px" }}>
                       Midnight Blue · manual · 67,400 mi
                     </div>
+                    <div className="mock-dossier">964 · 1989–1994 · M64 air-cooled</div>
                   </div>
                   <span className="mock-tag">Worth a closer look</span>
                 </div>
@@ -735,12 +752,12 @@ export default function Page() {
         </div>
       </section>
 
-      {/* ───── IMAGE 3 · LOUNGE ───── */}
-      <EditorialImage
+      {/* ───── TRANSITION 3 · WHERE DECISIONS HAPPEN ───── */}
+      <EditorialTransition
         variant="lounge"
-        ariaLabel="Private collector environment, warm interior light"
-        headline="Where collectors think about cars."
-        caption="Warm light. Considered surfaces. The room where the decisions actually happen — calm, private, intentional."
+        ariaLabel="Editorial transition — where decisions happen"
+        phrase="Where collectors think about cars. Warm light, considered surfaces — the room where the decisions actually happen."
+        mark="Chapter III · Begin"
       />
 
       {/* ───── BETA ───── */}
