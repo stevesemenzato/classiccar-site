@@ -1,5 +1,5 @@
-import Image from "next/image";
 import BetaForm from "./_components/beta-form";
+import SafeImage, { hasPublicImage } from "./_components/safe-image";
 
 /* ════════════════════════════════════════════════════════════════════
  * Classic Car Radar — marketing homepage
@@ -144,7 +144,7 @@ function EditorialTransition({
       className={`editorial-transition editorial-transition--${variant}`}
       aria-label={ariaLabel}
     >
-      <Image
+      <SafeImage
         src={img.src}
         alt={img.alt}
         fill
@@ -164,34 +164,34 @@ function EditorialTransition({
 
 const HOW_CARDS = [
   {
-    num: "01 · Daily sweep",
-    title: "A coherent read, every morning.",
-    body: "CCR walks the major sources overnight. Surfaces what is worth a closer look. Sorts by what you watch, not by what was paid for.",
+    num: "01 · Search",
+    title: "Ask in your own words.",
+    body: "Describe the kind of car you're looking for in plain language. CCR reads the intent and returns a focused view across auctions, dealers, classifieds, and private sales.",
   },
   {
-    num: "02 · Cars on your radar",
-    title: "A garage that remembers.",
-    body: "The cars you're tracking stay in view. New comparables appear when they do. The market around them is read for you.",
+    num: "02 · Garage",
+    title: "The cars on your radar, remembered.",
+    body: "The cars you're tracking stay in view. New comparables appear when they do. The market around them is kept in context for you.",
   },
   {
     num: "03 · Watchlist",
-    title: "Signals, monitored.",
+    title: "Specific listings, monitored.",
     body: "Specific listings, watched. Price changes, days on market, the quiet shifts that tell you something has moved.",
   },
   {
     num: "04 · Compare",
-    title: "Conviction through context.",
-    body: "Stand two or three candidates side by side. Spec, history, market position, comparable transactions — in one read.",
+    title: "Two or three candidates, side by side.",
+    body: "Place candidates side by side. Spec, history, market position, comparable transactions — in one view.",
   },
   {
-    num: "05 · Detail intelligence",
+    num: "05 · Market view",
     title: "Where a car actually sits.",
     body: "For any listing: comp set, days on market, the gap between asking and the prices the market actually pays.",
   },
   {
     num: "06 · Advisor",
-    title: "An editorial read, written for you.",
-    body: "Not a chatbot. A short, observational note when something across your garage or watchlist is worth pausing on.",
+    title: "A knowledgeable second perspective.",
+    body: "Not a chatbot. A short, considered note when something across your garage or watchlist is worth pausing on.",
   },
 ];
 
@@ -242,41 +242,98 @@ const RADAR = [
 
 const TRUST = [
   {
-    label: "Independent",
+    label: "Compare opportunities",
     statement:
-      "No commissions. No paid placement. Not owned by any seller, auction house, or marketplace.",
+      "Place candidates side by side. See where each one sits against the others — and against the market around them.",
   },
   {
-    label: "Transparent",
+    label: "Understand the market",
     statement:
-      "Every market read is grounded in the comp set behind it. Click through and see the same data we did.",
+      "Pricing, comparable transactions, and market movement on the cars you care about — kept current in the background.",
   },
   {
-    label: "Quiet",
+    label: "Spot concerns early",
     statement:
-      "No notifications. No urgency theater. No countdown clocks. CCR sits in the background.",
+      "Days on market, asking-vs-paid gaps, condition flags — the quiet signals that something may need a closer look.",
   },
   {
-    label: "Long horizon",
+    label: "Prepare for conversations",
     statement:
-      "Built for the reader who thinks in decades. Watching and waiting are first-class modes.",
+      "Arrive at a viewing or a call with the context already in hand. Better questions. Better negotiations.",
   },
   {
-    label: "Memory",
+    label: "Revisit over time",
     statement:
-      "CCR remembers the cars you've been watching and the focus you keep returning to. That continuity is yours.",
+      "CCR remembers the cars you've been watching and the categories you keep returning to. That continuity is yours.",
   },
   {
-    label: "Posture",
+    label: "Decide with confidence",
     statement:
-      "CCR's job is to help you understand. The decision — to act, to pass, to keep watching — is yours.",
+      "Approach important decisions with more clarity. The judgment — to act, to pass, to keep watching — stays with you.",
+  },
+];
+
+/* Marque studies — editorial cards anchored to specific cars CCR
+ * tracks closely. Each card carries an optional image slot at
+ * /images/marques/<slug>.jpg. When the file isn't present the image
+ * area collapses (handled by SafeImage + the .marque-card CSS rules) —
+ * never a broken icon, never a gray placeholder block. Commissioned
+ * photography drops in without code changes. */
+const MARQUES = [
+  {
+    slug: "ferrari-f40",
+    marque: "Ferrari",
+    car: "F40",
+    era: "1987–1992 · 1,315 built",
+    note: "Twin-turbo V8 · the last Ferrari signed off by Enzo.",
+    read: "Recent low-mileage examples have re-anchored the market after a quiet two years.",
+  },
+  {
+    slug: "porsche-gt3-touring",
+    marque: "Porsche",
+    car: "991.2 / 992 GT3 Touring",
+    era: "2017–present",
+    note: "Mezger-lineage 4.0 · manual · no wing.",
+    read: "Touring continues to separate from regular GT3 on the second-hand spread.",
+  },
+  {
+    slug: "alfa-romeo-33-stradale",
+    marque: "Alfa Romeo",
+    car: "33 Stradale",
+    era: "1967–1969 · 18 built",
+    note: "Franco Scaglione · 2.0L V8 · 8,800 rpm.",
+    read: "Rarely traded publicly; what little there is comes through private brokerage.",
+  },
+  {
+    slug: "bmw-m3-e30",
+    marque: "BMW",
+    car: "M3 E30",
+    era: "1986–1991",
+    note: "S14 four · homologation special · evo variants.",
+    read: "Documented Sport Evolution cars are clustering at the top of the curve.",
+  },
+  {
+    slug: "mclaren-f1",
+    marque: "McLaren",
+    car: "F1",
+    era: "1992–1998 · 106 built",
+    note: "Gordon Murray · BMW S70/2 V12 · 627 hp.",
+    read: "Provenance now matters more than condition. The market reads ownership.",
+  },
+  {
+    slug: "lancia-delta-integrale",
+    marque: "Lancia",
+    car: "Delta Integrale Evoluzione",
+    era: "1991–1994",
+    note: "Group A homologation · turbocharged 2.0 · AWD.",
+    read: "European market firming; documented Martini and Evo II cars setting the tone.",
   },
 ];
 
 const AUDIENCES = [
   {
     title: "The classic car enthusiast",
-    body: "You know the cars that matter. You've read the auctions for years. CCR is the quiet desk that keeps a coherent view of what's currently on offer in your corner of it.",
+    body: "You know the cars that matter. You've followed the auctions for years. CCR is the quiet desk that keeps a coherent view of what's currently on offer in your corner of the market.",
   },
   {
     title: "The modern classics buyer",
@@ -284,11 +341,11 @@ const AUDIENCES = [
   },
   {
     title: "The patient researcher",
-    body: "You are not buying this month. You are watching condition, watching prices, watching for the right example to finally surface. Calm browsing is a first-class mode here.",
+    body: "You are not buying this month. You are watching condition, watching prices, watching for the right example to finally come up. Calm browsing is a first-class mode here.",
   },
   {
     title: "The serious buyer",
-    body: "When you are ready, CCR's read on the specific listing is what stands between aspiration and informed conviction.",
+    body: "When you are ready, CCR's read on a specific listing is what stands between aspiration and informed conviction — the context you'd want before any important decision.",
   },
 ];
 
@@ -305,9 +362,9 @@ export default function Page() {
           <div className="nav-links">
             <a href="#why">Why</a>
             <a href="#how">How</a>
-            <a href="#intelligence">Intelligence</a>
             <a href="#radar">Radar</a>
-            <a href="#experience">Experience</a>
+            <a href="#marques">Marques</a>
+            <a href="#voice">Advisor</a>
             <a href="#trust">Trust</a>
           </div>
           <a href="#beta" className="nav-cta">
@@ -333,7 +390,8 @@ export default function Page() {
             for the <em>classic car</em> enthusiast.
           </h1>
           <p className="hero-sub">
-            Signals worth watching. Opportunities worth pursuing.
+            A collector&apos;s space — curated vehicles, market
+            intelligence, and signals worth watching.
           </p>
           <div className="hero-ctas">
             <a href="#beta" className="btn btn-primary">
@@ -371,24 +429,33 @@ export default function Page() {
             <div>
               <div className="section-eyebrow">Why CCR exists</div>
               <h2 className="section-title">
-                A market that rewards context — and punishes its absence.
+                Keeping up with the collector market is difficult,
+                fragmented, and time-consuming.
               </h2>
               <p className="section-lede">
-                Listings live across auctions, dealers, classifieds, and
-                private sales. Asking prices drift. Conviction is hard to
-                find when the signal is fragmented and the noise is constant.
+                Interesting cars are spread across auctions, dealer sites,
+                classifieds, forums, and private listings. The challenge
+                is not finding cars. It is finding the right cars.
               </p>
               <div className="why-pull">
-                CCR turns scattered listings into a coherent read of the cars
-                you actually care about.
+                To help enthusiasts navigate the market more intelligently
+                — and find the cars that genuinely fit what they&apos;re
+                looking for.
               </div>
+              <p
+                className="section-lede"
+                style={{ marginTop: "28px", fontStyle: "italic", opacity: 0.78 }}
+              >
+                Not to replace the hunt. To make the hunt more intelligent.
+              </p>
             </div>
             <div className="why-notes">
               <div className="why-note">
                 <div className="why-note-label">Fragmented supply</div>
                 <div className="why-note-body">
-                  The cars you watch live across a dozen surfaces — none of
-                  which talk to each other.
+                  The cars you watch live across auctions, dealers,
+                  classifieds, forums, and private sales — none of which
+                  talk to each other.
                 </div>
               </div>
               <div className="why-note">
@@ -399,10 +466,10 @@ export default function Page() {
                 </div>
               </div>
               <div className="why-note">
-                <div className="why-note-label">Context vacuum</div>
+                <div className="why-note-label">Missing context</div>
                 <div className="why-note-body">
                   Year, trim, paint, history — the details that decide value
-                  are rarely surfaced together.
+                  rarely sit alongside the listings.
                 </div>
               </div>
               <div className="why-note">
@@ -422,11 +489,12 @@ export default function Page() {
         <div className="section-inner">
           <div className="section-eyebrow">How CCR works</div>
           <h2 className="section-title">
-            A quiet daily read — calibrated to the cars on your radar.
+            A quiet daily read — calibrated to the cars you care about.
           </h2>
           <p className="section-lede">
-            Six surfaces, one conviction. A daily sweep. A memory of what you
-            watch. An advisor that reads the result alongside you.
+            A daily read on the market. Search, garage, watchlist, compare,
+            and an advisor that keeps context on the cars you&apos;re
+            following.
           </p>
           <div className="how-grid">
             {HOW_CARDS.map((card) => (
@@ -443,9 +511,9 @@ export default function Page() {
       {/* ───── INTELLIGENCE ───── */}
       <section className="section band-graphite" id="intelligence">
         <div className="section-inner">
-          <div className="section-eyebrow">Intelligence layer</div>
+          <div className="section-eyebrow">Collector intelligence</div>
           <h2 className="section-title">
-            A more coherent read of the market itself.
+            An AI advisor that understands the collector market.
           </h2>
 
           <div className="intel-grid">
@@ -466,7 +534,7 @@ export default function Page() {
               </p>
             </div>
             <div className="intel-queries">
-              <div className="intel-queries-label">Read in natural language</div>
+              <div className="intel-queries-label">Ask in natural language</div>
               <div className="intel-query">
                 &ldquo;Air-cooled 911 manual under 100k.&rdquo;
                 <span className="intel-query-dossier">
@@ -492,9 +560,9 @@ export default function Page() {
                 </span>
               </div>
               <div className="intel-queries-foot">
-                CCR reads intent — not just filters.
+                CCR reads the question, applies the right context,
                 <br />
-                The language is the interface.
+                and returns the cars worth a closer look.
               </div>
             </div>
           </div>
@@ -515,7 +583,7 @@ export default function Page() {
           <div className="radar-head">
             <div>
               <div className="section-eyebrow">Cars currently on radar</div>
-              <h2 className="section-title">Recently surfaced.</h2>
+              <h2 className="section-title">Recently worth watching.</h2>
             </div>
             <div className="radar-issue">
               <strong>Issue No. 12</strong>
@@ -560,32 +628,88 @@ export default function Page() {
         </div>
       </section>
 
+      {/* ───── MARQUE STUDIES ─────
+       * Six cars CCR follows closely. Each card has an optional image
+       * slot under /images/marques/<slug>.jpg — SafeImage renders the
+       * image when committed; otherwise the slot collapses cleanly and
+       * the editorial card carries on its own merits. */}
+      <section className="section band-bone-deep" id="marques">
+        <div className="section-inner">
+          <div className="section-eyebrow">Marque studies</div>
+          <h2 className="section-title">
+            The cars CCR follows most closely.
+          </h2>
+          <p className="section-lede">
+            A working dossier on six of the marques where CCR&apos;s
+            collector intelligence is densest — chosen by the readers,
+            shaped by the auctions, anchored in the daily sweep.
+          </p>
+          <div className="marque-grid">
+            {MARQUES.map((m) => {
+              const imgSrc = `/images/marques/${m.slug}.jpg`;
+              const hasImage = hasPublicImage(imgSrc);
+              return (
+                <article
+                  key={m.slug}
+                  className={`marque-card${hasImage ? " marque-card--with-image" : ""}`}
+                >
+                  {hasImage ? (
+                    <div className="marque-image-slot">
+                      <SafeImage
+                        src={imgSrc}
+                        alt={`${m.marque} ${m.car} — editorial study`}
+                        fill
+                        sizes="(max-width: 720px) 100vw, (max-width: 1080px) 50vw, 33vw"
+                        className="marque-image"
+                      />
+                    </div>
+                  ) : null}
+                  <div className="marque-body">
+                    <div className="marque-marque">{m.marque}</div>
+                    <h3 className="marque-car">{m.car}</h3>
+                    <div className="marque-era">{m.era}</div>
+                    <p className="marque-note">{m.note}</p>
+                    <p className="marque-read">{m.read}</p>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+          <div className="marque-foot">
+            Six of more than ninety marques and chassis CCR currently tracks.
+          </div>
+        </div>
+      </section>
+
       {/* ───── EXPERIENCE ───── */}
       <section className="section band-graphite" id="experience">
         <div className="section-inner">
           <div className="section-eyebrow">The CCR experience</div>
           <h2 className="section-title">
-            Restrained surfaces. Considered language.
+            The more you explore, the more aligned CCR becomes.
           </h2>
           <p className="section-lede" style={{ marginBottom: "112px" }}>
-            Every surface in CCR is built on one principle. The reader is
-            already smart. We surface what is worth a closer look — and stay
-            out of the way of the rest.
+            The more you explore the market, the more aligned CCR becomes
+            with your interests, priorities, and collector focus. Over
+            time, it becomes a more informed and useful advisor around the
+            cars worth your attention.
           </p>
 
           {/* Search */}
           <div className="exp-row">
             <div className="exp-text">
-              <div className="exp-text-eyebrow">Search · Command surface</div>
-              <h3>Ask the market a question.</h3>
+              <div className="exp-text-eyebrow">Search</div>
+              <h3>Ask questions naturally.</h3>
               <p>
                 &ldquo;Air-cooled 911 manual under 100k.&rdquo; &ldquo;California
-                T under 130.&rdquo; CCR reads the question, applies the right
-                filters, and returns a focused view.
+                T under 130.&rdquo; Ask in your own words. CCR reads the
+                question, applies the right context, and returns the cars
+                worth a closer look.
               </p>
               <p>
-                No facets to manage. No filter sidebars to click through. The
-                language is the interface.
+                No facets to manage. No filter sidebars. The language is the
+                interface — and the answers come back with the context
+                needed to make more informed decisions.
               </p>
             </div>
             <div className="exp-mock">
@@ -635,7 +759,7 @@ export default function Page() {
                   </div>
                 </div>
                 <div className="mock-meta">
-                  <span>22 currently surfaced</span>
+                  <span>22 in your view today</span>
                   <span>Daily sweep · 04:18</span>
                 </div>
               </div>
@@ -645,16 +769,16 @@ export default function Page() {
           {/* Detail */}
           <div className="exp-row flip">
             <div className="exp-text">
-              <div className="exp-text-eyebrow">Detail · Opportunity analysis</div>
+              <div className="exp-text-eyebrow">Market view</div>
               <h3>Read the listing past the listing.</h3>
               <p>
-                Every car opens to a detail surface that places it in its
-                market — comparable transactions, days on market, the gap
-                between asking and observed prices.
+                Every car opens into its market view — comparable
+                transactions, days on market, the gap between asking and
+                the prices the market actually pays.
               </p>
               <p>
-                No badges. No &ldquo;great deal&rdquo; stamps. The read is
-                shown, and the reader is trusted to act.
+                No badges. No &ldquo;great deal&rdquo; stamps. The context
+                is shown, and the decision stays with you.
               </p>
             </div>
             <div className="exp-mock">
@@ -708,13 +832,19 @@ export default function Page() {
           {/* Advisor */}
           <div className="exp-row">
             <div className="exp-text">
-              <div className="exp-text-eyebrow">Advisor · Observational reads</div>
-              <h3>A short note, when something is worth a pause.</h3>
+              <div className="exp-text-eyebrow">Advisor</div>
+              <h3>A trusted second perspective.</h3>
               <p>
-                Not a chatbot. Not a greeting. An editorial read of what CCR
-                is seeing across your garage and watchlist.
+                Your CCR advisor keeps track of the cars and categories
+                that matter to you — surfacing opportunities worth a closer
+                look when the market moves.
               </p>
-              <p>You can dismiss it. It will not return until something changes.</p>
+              <p>
+                Not a chatbot. Not a copilot. A short, considered note when
+                something across your garage or watchlist deserves
+                attention. You can dismiss it. It will not return until
+                something changes.
+              </p>
             </div>
             <div className="exp-mock">
               <div className="mock-panel mock-advisor">
@@ -737,11 +867,14 @@ export default function Page() {
       <section className="section band-bone" id="enthusiasts">
         <div className="section-inner">
           <div className="section-eyebrow">Built for enthusiasts</div>
-          <h2 className="section-title">For the reader who thinks in decades.</h2>
+          <h2 className="section-title">
+            Built for collectors, enthusiasts, restorers, and drivers.
+          </h2>
           <p className="section-lede">
-            Most CCR readers are not in the market this week. They are
-            watching. Reading. Building conviction. CCR validates that
-            posture — and is there when the right car shows up.
+            For people who genuinely care about the market and the machines
+            within it. About preservation, craftsmanship, long-term
+            ownership, and the analog, petrol-powered culture around these
+            cars.
           </p>
           <div className="audience-grid">
             {AUDIENCES.map((a) => (
@@ -759,12 +892,14 @@ export default function Page() {
         <div className="section-inner">
           <div className="section-eyebrow">How CCR thinks</div>
           <h2 className="section-title">
-            Intelligence, not inventory. Context, not commerce.
+            Support for better enthusiast judgment.
           </h2>
           <p className="section-lede">
-            CCR is not a dealer, not a marketplace, and not a paid-placement
-            platform. Our work is to help you read the market well — and to
-            be worth keeping open for the years you may spend watching it.
+            CCR is designed to support the way thoughtful enthusiasts
+            evaluate cars. A daily read on the market — with an AI
+            advisor available when you want a second perspective. Rather
+            than replacing your judgment, CCR is designed to strengthen
+            it.
           </p>
           <div className="trust-grid">
             {TRUST.map((t) => (
@@ -781,11 +916,93 @@ export default function Page() {
         </div>
       </section>
 
+      {/* ───── VOICE-FIRST ADVISOR ─────
+       * Bloomberg Terminal x Sotheby's framing — premium, restrained,
+       * substance-over-hype. The advisor is conversational and has
+       * persistent memory of the cars you follow, but the surface
+       * language stays editorial, not chatbot. */}
+      <section className="section band-graphite" id="voice">
+        <div className="section-inner">
+          <div className="section-eyebrow">The CCR advisor</div>
+          <h2 className="section-title">
+            A voice-first advisor that understands the collector market.
+          </h2>
+          <p className="section-lede">
+            CCR is built around an AI-native advisor that holds context
+            across auctions, dealers, classifieds, and private sales —
+            and remembers what each collector is following.
+          </p>
+
+          <div className="voice-grid">
+            <div className="voice-text">
+              <ul className="voice-points">
+                <li>
+                  <span className="voice-point-label">Persistent memory.</span>
+                  The cars you watch, the marques you study, the price
+                  bands you care about — CCR remembers, and gets sharper
+                  the more you use it.
+                </li>
+                <li>
+                  <span className="voice-point-label">Conversational intelligence.</span>
+                  Ask in your own words. CCR reads the question, applies
+                  the right context, and answers with the comp set behind
+                  the read.
+                </li>
+                <li>
+                  <span className="voice-point-label">Cross-market analysis.</span>
+                  One coherent view across BaT, Collecting Cars, RM and
+                  Bonhams catalogues, dealer inventory, and the
+                  classifieds — not six tabs that disagree.
+                </li>
+                <li>
+                  <span className="voice-point-label">Opportunity discovery.</span>
+                  CCR surfaces the listings worth a closer look before
+                  the rest of the market notices — quietly, and with the
+                  evidence on hand.
+                </li>
+              </ul>
+            </div>
+
+            <div className="voice-mock">
+              <div className="voice-mock-rail">
+                <span className="voice-mock-meta">CCR · advisor</span>
+                <span className="voice-mock-meta">Today · 06:42</span>
+              </div>
+              <div className="voice-mock-q">
+                You · &ldquo;What&apos;s happened to manual 550s this month?&rdquo;
+              </div>
+              <div className="voice-mock-a">
+                <p>
+                  Seven manual 550 Maranellos changed hands in the past
+                  thirty days — three at auction, four through dealers.
+                  Median transaction up roughly 6&nbsp;% versus the prior
+                  quarter, but condition spread is widening.
+                </p>
+                <p>
+                  Two of the cars on your radar moved with the median.
+                  One held above it. The London car you flagged in March
+                  is still listed; days-on-market is at 84.
+                </p>
+                <p className="voice-mock-byline">— CCR</p>
+              </div>
+              <div className="voice-mock-foot">
+                Speak to CCR · Ask a question · Open the comp set
+              </div>
+            </div>
+          </div>
+
+          <div className="voice-pull">
+            &ldquo;A terminal for the collector market — quiet, intelligent,
+            and yours.&rdquo;
+          </div>
+        </div>
+      </section>
+
       {/* ───── TRANSITION 3 · WHERE DECISIONS HAPPEN ───── */}
       <EditorialTransition
         variant="lounge"
         ariaLabel="Editorial transition — where decisions happen"
-        phrase="Where collectors think about cars. Warm light, considered surfaces — the room where the decisions actually happen."
+        phrase="Where collectors think about cars. Warm light, considered materials — the room where the decisions actually happen."
         mark="Chapter III · Begin"
       />
 
@@ -796,11 +1013,13 @@ export default function Page() {
           <div className="beta-grid">
             <div>
               <div className="section-eyebrow">Request early access</div>
-              <h2 className="section-title">Begin watching the market with CCR.</h2>
+              <h2 className="section-title">
+                Begin tracking the collector market with CCR.
+              </h2>
               <p className="section-lede">
-                CCR is in private beta. We are adding readers in calm
-                cohorts — and when we add you, we&apos;d like the platform
-                to already understand what you watch.
+                CCR is in private beta. We are adding enthusiasts in calm
+                cohorts — and when we add you, we&apos;d like CCR to
+                already understand the cars you&apos;re following.
               </p>
               <div className="beta-meta">
                 Private beta · Limited cohorts
@@ -822,8 +1041,8 @@ export default function Page() {
               <span className="brand-name">Classic Car Radar</span>
             </div>
             <div className="footer-tag">
-              Trusted intelligence for the classic car enthusiast. Signals
-              worth watching.
+              A collector&apos;s space — curated vehicles, market
+              intelligence, and signals worth watching.
             </div>
           </div>
           <div className="footer-col">

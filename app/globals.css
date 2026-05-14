@@ -1316,6 +1316,242 @@ button { font: inherit; }
 }
 
 /* ────────────────────────────────────────────────────────────────────
+ * MARQUE STUDIES — six editorial dossier cards with optional image
+ * slots. Cards work fully without imagery; when an image lands at
+ * /images/marques/<slug>.jpg the slot renders above the body without
+ * any layout shift.
+ * ──────────────────────────────────────────────────────────────────── */
+.band-bone-deep {
+  background: #15161A;
+  color: var(--bone-warm);
+  position: relative;
+}
+
+.marque-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+
+.marque-card {
+  background: rgba(232, 227, 216, 0.03);
+  border: 1px solid rgba(232, 227, 216, 0.08);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 240ms ease, transform 240ms ease;
+}
+.marque-card:hover {
+  border-color: rgba(198, 143, 94, 0.35);
+  transform: translateY(-2px);
+}
+
+/* Image slot — only emitted when the file exists on disk (server gate
+ * in app/_components/safe-image.tsx). Aspect-ratio reserved so cards
+ * with imagery line up; cards without imagery skip the block entirely
+ * and the body fills the card. */
+.marque-image-slot {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(180deg, #1F2229 0%, #15171D 100%);
+  overflow: hidden;
+}
+.marque-image-slot .marque-image {
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(0.85) brightness(0.92);
+}
+.marque-image-slot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10,12,18,0) 55%, rgba(10,12,18,0.55) 100%);
+  pointer-events: none;
+}
+
+.marque-body {
+  padding: 32px 28px 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+.marque-marque {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+}
+.marque-car {
+  font-family: var(--f-serif);
+  font-size: 23px;
+  line-height: 1.2;
+  margin: 0;
+  color: var(--bone-warm);
+}
+.marque-era {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bone-warm);
+  opacity: 0.55;
+}
+.marque-note {
+  font-family: var(--f-tight);
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--bone-warm);
+  opacity: 0.78;
+  margin: 0;
+}
+.marque-read {
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--bone-warm);
+  opacity: 0.7;
+  margin: 4px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid rgba(232, 227, 216, 0.08);
+}
+.marque-foot {
+  margin-top: 56px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--copper);
+  opacity: 0.85;
+}
+
+/* ────────────────────────────────────────────────────────────────────
+ * VOICE / AI ADVISOR — premium framing for the collector terminal.
+ * Restrained, evidence-led, Bloomberg-Sotheby's tone. No chatbot
+ * affordances, no hype iconography.
+ * ──────────────────────────────────────────────────────────────────── */
+.voice-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  margin-top: 56px;
+  align-items: flex-start;
+}
+.voice-text { color: var(--bone-warm); }
+.voice-points {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+.voice-points li {
+  font-family: var(--f-tight);
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: var(--bone-warm);
+  opacity: 0.86;
+  padding-left: 20px;
+  position: relative;
+}
+.voice-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--copper);
+  opacity: 0.85;
+}
+.voice-point-label {
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  margin-bottom: 6px;
+}
+
+.voice-mock {
+  background: rgba(11, 14, 20, 0.55);
+  border: 1px solid rgba(232, 227, 216, 0.12);
+  padding: 28px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.voice-mock-rail {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  opacity: 0.85;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(232, 227, 216, 0.08);
+}
+.voice-mock-q {
+  font-family: var(--f-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: var(--bone-warm);
+  opacity: 0.9;
+  line-height: 1.55;
+}
+.voice-mock-a {
+  font-family: var(--f-serif);
+  font-size: 15px;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--bone-warm);
+  opacity: 0.92;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.voice-mock-a p { margin: 0; }
+.voice-mock-byline {
+  font-family: var(--f-mono);
+  font-style: normal;
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--copper);
+  opacity: 0.85;
+}
+.voice-mock-foot {
+  padding-top: 14px;
+  border-top: 1px solid rgba(232, 227, 216, 0.08);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--bone-warm);
+  opacity: 0.45;
+}
+.voice-pull {
+  margin-top: 64px;
+  font-family: var(--f-serif);
+  font-style: italic;
+  font-size: 22px;
+  line-height: 1.45;
+  color: var(--bone-warm);
+  opacity: 0.92;
+  max-width: 760px;
+}
+
+/* ────────────────────────────────────────────────────────────────────
  * RESPONSIVE
  * ──────────────────────────────────────────────────────────────────── */
 @media (max-width: 960px) {
@@ -1347,4 +1583,9 @@ button { font: inherit; }
   .editorial-image-tag { top: 22px; right: 22px; }
   .footer-inner { grid-template-columns: 1fr 1fr; gap: 44px; }
   .footer-fine { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .marque-grid { grid-template-columns: 1fr; gap: 24px; }
+  .marque-body { padding: 28px 24px 32px; }
+  .voice-grid { grid-template-columns: 1fr; gap: 44px; }
+  .voice-mock { padding: 24px 22px; }
+  .voice-pull { font-size: 18px; margin-top: 44px; }
 }
